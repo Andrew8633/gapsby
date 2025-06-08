@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Great Gapsby - Reader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto+Slab:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto Slab', serif;
+      margin: 0 auto;
+      padding: 1em;
+      background: #fafafa;
+      color: #333;
+      line-height: 1.6;
+      max-width: 700px;
+      text-align: left; /* ensure left alignment */
+    }
+    #intro, #preface, #scoreDisplay { margin-bottom: 1.5em; }
+    #intro h1 { font-family: 'Playfair Display', serif; font-size: 3em; text-transform: uppercase; margin: 0; }
+    .title-highlight { text-decoration: underline dotted #aaa; }
+    #intro p { margin: 0.5em 0 0; color: #666; }
+    #preface { background: #fff; border-left: 4px solid #333; padding: 1em; box-shadow: 0 4px 8px rgba(0,0,0,0.05); white-space: pre-wrap; font-style: italic; }
+    #scoreDisplay { position: sticky; top: 0; background: #fff; padding: 0.75em 0; font-weight: bold; text-align: center; border-bottom:1px solid #ddd; }
+    #content {
+      padding-bottom: 30vh;
+      /* remove pre-wrap for natural flow */
+    }
+    #content p {
+      text-align: justify;
+      text-indent: 1.5em;
+      margin-bottom: 1em;
+    }
+    select { font-size:1em; margin:0 0.15em; }
+    @media (max-width:599px) {
+      body { padding:0.75em; }
+      #intro h1 { font-size:2em; }
+      #intro p, #preface, #scoreDisplay { font-size:0.9em; }
+      select { width:100%; margin:0.5em 0; padding:0.5em; box-sizing:border-box; }
+    }
+    @media (min-width:600px) { select { width:auto; margin:0 0.15em; padding:initial; } }
+  </style>
+</head>
+<body>
+  <div id="intro">
+    <h1>The Great <span class="title-highlight">GAP</span>sby</h1>
+    <p>Welcome to this interactive cloze reading of F. Scott Fitzgerald’s classic novel.</p>
+  </div>
+  <div id="preface">
+    The Great Gatsby
+    by
+    F. Scott Fitzgerald
+
+    Table of Contents
+    I II III IV V VI VII VIII IX
+
+    Once again to Zelda
+
+    Then wear the gold hat, if that will move her;
+    If you can bounce high, bounce for her too,
+    Till she cry “Lover, gold-hatted, high-bouncing lover,
+    I must have you!”
+
+    Thomas Parke d’Invilliers
+  </div>
+  <div id="scoreDisplay">Score: 0</div>
+  <div id="content">Loading...</div>
+
+  <script>
+    const scoreKey = 'great-gatsby-score';
+    const scrollKey = 'great-gatsby-scroll';
+    // Initialize score from storage, default 0
+    let score = parseInt(localStorage.getItem(scoreKey), 10) || 0;
+
+    // Paste your full book text here, with native paragraphs separated by blank lines:
+    const bookText = `
+                                  I
+
+In my younger and more vulnerable years my father gave me some advice
+that I’ve been turning over in my mind ever since.
+
+“Whenever you feel like criticizing anyone,” he told me, “just
+remember that all the people in this world haven’t had the advantages
+that you’ve had.”
+
+He didn’t say any more, but we’ve always been unusually communicative
+in a reserved way, and I understood that he meant a great deal more
+than that. In consequence, I’m inclined to reserve all judgements, a
+habit that has opened up many curious natures to me and also made me
+the victim of not a few veteran bores. The abnormal mind is quick to
+detect and attach itself to this quality when it appears in a normal
+person, and so it came about that in college I was unjustly accused of
+being a politician, because I was privy to the secret griefs of wild,
+unknown men. Most of the confidences were unsought—frequently I have
+feigned sleep, preoccupation, or a hostile levity when I realized by
+some unmistakable sign that an intimate revelation was quivering on
+the horizon; for the intimate revelations of young men, or at least
+the terms in which they express them, are usually plagiaristic and
+marred by obvious suppressions. Reserving judgements is a matter of
+infinite hope. I am still a little afraid of missing something if I
+forget that, as my father snobbishly suggested, and I snobbishly
+repeat, a sense of the fundamental decencies is parcelled out
+unequally at birth.
+
+And, after boasting this way of my tolerance, I come to the admission
+that it has a limit. Conduct may be founded on the hard rock or the
+wet marshes, but after a certain point I don’t care what it’s founded
+on. When I came back from the East last autumn I felt that I wanted
+the world to be in uniform and at a sort of moral attention forever; I
+wanted no more riotous excursions with privileged glimpses into the
+human heart. Only Gatsby, the man who gives his name to this book, was
+exempt from my reaction—Gatsby, who represented everything for which I
+have an unaffected scorn. If personality is an unbroken series of
+successful gestures, then there was something gorgeous about him, some
+heightened sensitivity to the promises of life, as if he were related
+to one of those intricate machines that register earthquakes ten
+thousand miles away. This responsiveness had nothing to do with that
+flabby impressionability which is dignified under the name of the
+“creative temperament”—it was an extraordinary gift for hope, a
+romantic readiness such as I have never found in any other person and
+which it is not likely I shall ever find again. No—Gatsby turned out
+all right at the end; it is what preyed on Gatsby, what foul dust
+floated in the wake of his dreams that temporarily closed out my
+interest in the abortive sorrows and short-winded elations of men.
+
+------------------------------------------------------------------------
+
+My family have been prominent, well-to-do people in this Middle
+Western city for three generations. The Carraways are something of a
+clan, and we have a tradition that we’re descended from the Dukes of
+Buccleuch, but the actual founder of my line was my grandfather’s
+brother, who came here in fifty-one, sent a substitute to the Civil
+War, and started the wholesale hardware business that my father
+carries on today.
+
+I never saw this great-uncle, but I’m supposed to look like him—with
+special reference to the rather hard-boiled painting that hangs in
+father’s office. I graduated from New Haven in 1915, just a quarter of
+a century after my father, and a little later I participated in that
+delayed Teutonic migration known as the Great War. I enjoyed the
+counter-raid so thoroughly that I came back restless. Instead of being
+the warm centre of the world, the Middle West now seemed like the
+ragged edge of the universe—so I decided to go East and learn the bond
+business. Everybody I knew was in the bond business, so I supposed it
+could support one more single man. All my aunts and uncles talked it
+over as if they were choosing a prep school for me, and finally said,
+“Why—ye-es,” with very grave, hesitant faces. Father agreed to finance
+me for a year, and after various delays I came East, permanently, I
+thought, in the spring of twenty-two.
+`;
+
+    // Randomize three wrong options + correct answer
+    function rndOptions(ans) {
+      const words = bookText.split(/\s+/).filter(w => w.length >= 6 && w !== ans);
+      const opts = [ans];
+      while (opts.length < 4 && words.length) {
+        const w = words[Math.floor(Math.random() * words.length)];
+        if (!opts.includes(w)) opts.push(w);
+      }
+      return opts.sort(() => Math.random() - 0.5);
+    }
+
+    function updateScore() {
+      score++;
+      document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+      localStorage.setItem(scoreKey, score);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render paragraphs
+      const paragraphs = bookText.split(/\n\s*\n/);
+      let idx = 0;
+      let sentenceCount = 0;
+      const contentDiv = document.getElementById('content');
+      contentDiv.innerHTML = '';
+
+      paragraphs.forEach(para => {
+        const pEl = document.createElement('p');
+        // Split into sentences
+        const sents = para.match(/[^\.\?!]+[\.\?!]+(?:\s|$)/g) || [para];
+        sents.forEach(sent => {
+          sentenceCount++;
+          if (sentenceCount % 3 === 0) {
+            // Inject cloze into first long word
+            const processed = sent.replace(/(\b\w{6,}\b)/, match => {
+              const opts = rndOptions(match);
+              let sel = `<select data-ans="${match}" data-idx="${idx}"><option>Select...</option>`;
+              opts.forEach(o => sel += `<option value="${o}">${o}</option>`);
+              sel += '</select>';
+              idx++;
+              return sel;
+            });
+            pEl.insertAdjacentHTML('beforeend', processed);
+          } else {
+            pEl.appendChild(document.createTextNode(sent));
+          }
+        });
+        contentDiv.appendChild(pEl);
+      });
+
+      // Attach listeners
+      document.querySelectorAll('#content select').forEach((sel, i) => {
+        if (i > 0) sel.disabled = true;
+        sel.addEventListener('change', e => {
+          const t = e.target;
+          if (t.value === t.dataset.ans) {
+            t.style.background = 'lightgreen';
+            updateScore();
+          } else {
+            t.style.background = 'lightcoral';
+          }
+          t.disabled = true;
+          // Enable next
+          const next = document.querySelector(`select[data-idx='${i+1}']`);
+          if (next) next.disabled = false;
+        });
+      });
+
+      // Restore scroll
+      const saved = parseInt(localStorage.getItem(scrollKey), 10) || 0;
+      window.scrollTo(0, saved);
+      window.addEventListener('scroll', () => {
+        localStorage.setItem(scrollKey, window.scrollY);
+      });
+
+      // Initialize score display
+      document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+    });
+  </script>
+</body>
+</html>
